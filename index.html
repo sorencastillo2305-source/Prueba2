@@ -1,0 +1,3516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraftNode - Premium Minecraft Server Hosting</title>
+  <meta name="description" content="Premium Minecraft server hosting with instant setup, powerful hardware, and 24/7 support. Lag-free servers starting from $5.99/month.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0d0f1a;
+      --bg-secondary: #12141f;
+      --bg-card: #1a1d2e;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --cyan-400: #22d3ee;
+      --cyan-500: #06b6d4;
+      --emerald-400: #34d399;
+      --emerald-500: #10b981;
+      --green-500: #22c55e;
+      --purple-600: #9333ea;
+      --violet-600: #7c3aed;
+      --pink-500: #ec4899;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Scroll Animation Base */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .scroll-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-animate.from-left {
+      transform: translateX(40px);
+    }
+
+    .scroll-animate.from-left.visible {
+      transform: translateX(0);
+    }
+
+    .scroll-animate.from-right {
+      transform: translateX(-40px);
+    }
+
+    .scroll-animate.from-right.visible {
+      transform: translateX(0);
+    }
+
+    .scroll-animate.from-scale {
+      transform: scale(0.9);
+    }
+
+    .scroll-animate.from-scale.visible {
+      transform: scale(1);
+    }
+
+    /* Utility Classes */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--cyan-400), var(--emerald-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #84cc16, #22c55e);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #a3e635, #4ade80);
+      transform: scale(1.05);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--slate-600);
+      color: var(--text-secondary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(71, 85, 105, 0.3);
+      transform: scale(1.05);
+    }
+
+    .btn-lg {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+
+    /* Promo Banner */
+    .promo-banner {
+      background: linear-gradient(90deg, var(--purple-600), var(--violet-600), var(--purple-600));
+      text-align: center;
+      padding: 0.625rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .promo-banner .highlight {
+      color: var(--cyan-400);
+      font-weight: 600;
+    }
+
+    .promo-banner .code {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.25rem;
+      margin-left: 0.5rem;
+      font-family: monospace;
+      font-size: 0.75rem;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .navbar-logo-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: linear-gradient(135deg, var(--cyan-400), var(--emerald-400));
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar-logo-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--bg-primary);
+    }
+
+    .navbar-logo-text {
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .navbar-links {
+      display: none;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .navbar-links {
+        display: flex;
+      }
+    }
+
+    .navbar-links a {
+      padding: 0.5rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .navbar-buttons {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .navbar-buttons {
+        display: flex;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      overflow: hidden;
+      padding: 4rem 0 5rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .hero-glow-1 {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 600px;
+      height: 600px;
+      background: rgba(147, 51, 234, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 400px;
+      height: 400px;
+      background: rgba(6, 182, 212, 0.2);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: pulse 4s ease-in-out infinite 1s;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-content {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+      min-height: 75vh;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero-trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-avatars {
+      display: flex;
+    }
+
+    .hero-avatars img {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 50%;
+      border: 2px solid var(--bg-primary);
+      object-fit: cover;
+      margin-left: -0.5rem;
+    }
+
+    .hero-avatars img:first-child {
+      margin-left: 0;
+    }
+
+    .hero-divider {
+      height: 1.5rem;
+      width: 1px;
+      background: var(--slate-600);
+    }
+
+    .hero-stars {
+      display: flex;
+      gap: 0.125rem;
+    }
+
+    .hero-stars svg {
+      width: 1rem;
+      height: 1rem;
+      fill: var(--green-500);
+      color: var(--green-500);
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 3.75rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 4.5rem;
+      }
+    }
+
+    .hero-description {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 32rem;
+      margin-top: 1rem;
+    }
+
+    .hero-features {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-feature-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-feature-icon svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      color: var(--emerald-400);
+    }
+
+    .hero-feature span {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-cta {
+        flex-direction: row;
+      }
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      padding-top: 1rem;
+    }
+
+    .hero-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.125rem;
+    }
+
+    .hero-right {
+      display: none;
+      justify-content: center;
+      position: relative;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-right {
+        display: flex;
+      }
+    }
+
+    .hero-image-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .hero-image {
+      position: relative;
+      max-width: 500px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero-badge {
+      position: absolute;
+      background: rgba(26, 29, 46, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--slate-600);
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-badge-1 {
+      top: 2.5rem;
+      right: 0;
+      animation: floatDelayed 3s ease-in-out infinite 0.5s;
+    }
+
+    .hero-badge-2 {
+      bottom: 5rem;
+      left: 0;
+      animation: floatDelayed2 3.5s ease-in-out infinite 1s;
+    }
+
+    @keyframes floatDelayed {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes floatDelayed2 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .hero-badge-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-badge-icon.green {
+      background: rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-badge-icon.cyan {
+      background: rgba(6, 182, 212, 0.2);
+    }
+
+    .hero-badge-icon svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .hero-badge-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .hero-badge-subtext {
+      font-size: 0.625rem;
+      color: var(--text-secondary);
+    }
+
+    /* Pricing Section */
+    .pricing {
+      position: relative;
+      padding: 7rem 0;
+    }
+
+    .pricing-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      background-size: cover;
+      background-position: center;
+      background-image: url('https://wisehosting.com/images/screenshots/cave_8.avif');
+    }
+
+    .pricing-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--bg-primary), rgba(13, 15, 26, 0.95), var(--bg-primary));
+    }
+
+    .pricing-content {
+      position: relative;
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: var(--cyan-400);
+    }
+
+    .pricing-badge svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .pricing-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .pricing-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .pricing-title {
+        font-size: 3rem;
+      }
+    }
+
+    .pricing-subtitle {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 0.75rem;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+
+    .pricing-toggle-container {
+      background: var(--bg-card);
+      border-radius: 0.75rem;
+      padding: 0.375rem;
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .pricing-toggle-btn {
+      padding: 0.625rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .pricing-toggle-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .pricing-toggle-btn.active {
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--text-primary);
+    }
+
+    .pricing-toggle-discount {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--emerald-400);
+      font-size: 0.625rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 9999px;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .pricing-cards {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .pricing-card {
+      position: relative;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(51, 65, 85, 0.8);
+    }
+
+    .pricing-card.popular {
+      background: linear-gradient(to bottom, #1e2235, var(--bg-card));
+      border: 2px solid rgba(6, 182, 212, 0.5);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.1);
+      margin-top: -0.5rem;
+    }
+
+    .pricing-card-badge {
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #eab308, #f97316);
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    .pricing-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-card-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 0.75rem;
+      padding: 2px;
+    }
+
+    .pricing-card-icon-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .pricing-card-icon img {
+      width: 2.5rem;
+      height: 2.5rem;
+      object-fit: contain;
+      transition: all 0.3s ease;
+    }
+
+    .pricing-card:hover .pricing-card-icon img {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .pricing-card-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .pricing-card-ram {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pricing-card-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+      min-height: 40px;
+      line-height: 1.5;
+    }
+
+    .pricing-card-price {
+      margin-bottom: 1.25rem;
+    }
+
+    .pricing-card-price-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+    }
+
+    .pricing-card-price-period {
+      color: var(--text-muted);
+    }
+
+    .pricing-card-price-original {
+      font-size: 0.875rem;
+      color: var(--slate-600);
+      text-decoration: line-through;
+    }
+
+    .pricing-card-price-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .pricing-card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-card-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .pricing-card-feature-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      background: var(--slate-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pricing-card-feature-icon svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--cyan-400);
+    }
+
+    .pricing-card-feature span {
+      font-size: 0.875rem;
+    }
+
+    .pricing-card-btn {
+      width: 100%;
+      padding: 1.25rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .pricing-card-btn.primary {
+      background: linear-gradient(90deg, var(--cyan-500), var(--emerald-400));
+      color: #000;
+    }
+
+    .pricing-card-btn.primary:hover {
+      background: linear-gradient(90deg, var(--cyan-400), var(--emerald-400));
+    }
+
+    .pricing-card-btn.purple {
+      background: linear-gradient(90deg, var(--purple-600), var(--violet-600));
+      color: #fff;
+    }
+
+    .pricing-card-btn.purple:hover {
+      background: linear-gradient(90deg, #a855f7, #8b5cf6);
+    }
+
+    .pricing-footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .pricing-footer span {
+      color: var(--text-secondary);
+      margin: 0 0.25rem;
+    }
+
+    /* Features Section */
+    .features {
+      position: relative;
+      padding: 7rem 0;
+      overflow: hidden;
+    }
+
+    .features-glow-1 {
+      position: absolute;
+      top: 25%;
+      left: 0;
+      width: 24rem;
+      height: 24rem;
+      background: rgba(6, 182, 212, 0.05);
+      border-radius: 50%;
+      filter: blur(150px);
+    }
+
+    .features-glow-2 {
+      position: absolute;
+      bottom: 25%;
+      right: 0;
+      width: 24rem;
+      height: 24rem;
+      background: rgba(147, 51, 234, 0.05);
+      border-radius: 50%;
+      filter: blur(150px);
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .features-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid rgba(147, 51, 234, 0.2);
+      color: #a855f7;
+    }
+
+    .features-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .features-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-title {
+        font-size: 3rem;
+      }
+    }
+
+    .features-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 1rem;
+      max-width: 48rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background: rgba(26, 29, 46, 0.8);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(51, 65, 85, 0.8);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.05);
+    }
+
+    .feature-card-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 0.75rem;
+      padding: 2px;
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-card-icon-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-card-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: #fff;
+    }
+
+    .feature-card-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .feature-card:hover .feature-card-title {
+      color: var(--cyan-400);
+    }
+
+    .feature-card-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .features-highlight {
+      margin-top: 4rem;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .features-highlight-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .features-highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .features-highlight-item svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--cyan-400);
+    }
+
+    .features-highlight-item span {
+      font-weight: 500;
+    }
+
+    /* Games Section */
+    .games {
+      position: relative;
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .games-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .games-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .games-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: rgba(236, 72, 153, 0.1);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      color: var(--pink-500);
+      width: fit-content;
+    }
+
+    .games-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 0.75rem;
+    }
+
+    .games-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cyan-400);
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .games-link:hover {
+      color: #67e8f9;
+    }
+
+    .games-link:hover svg {
+      transform: translateX(4px);
+    }
+
+    .games-link svg {
+      width: 1rem;
+      height: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .games-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .games-grid {
+        grid-template-columns: repeat(8, 1fr);
+      }
+    }
+
+    .game-card {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: var(--slate-800);
+      border: 1px solid var(--slate-600);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(6, 182, 212, 0.5);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.1);
+    }
+
+    .game-card-image {
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .game-card:hover .game-card-image img {
+      transform: scale(1.1);
+    }
+
+    .game-card-discount {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      background: linear-gradient(90deg, #ef4444, var(--pink-500));
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+    }
+
+    .game-card-info {
+      padding: 0.75rem;
+      background: var(--bg-card);
+    }
+
+    .game-card-name {
+      font-weight: 600;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s ease;
+    }
+
+    .game-card:hover .game-card-name {
+      color: var(--cyan-400);
+    }
+
+    .game-card-price {
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 0.125rem;
+    }
+
+    /* Control Panel Section */
+    .control-panel {
+      position: relative;
+      padding: 6rem 0;
+    }
+
+    .control-panel-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .control-panel-title {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    @media (min-width: 640px) {
+      .control-panel-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .control-panel-title {
+        font-size: 3rem;
+      }
+    }
+
+    .control-panel-title span {
+      color: var(--cyan-400);
+    }
+
+    .control-panel-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 1rem;
+    }
+
+    .control-panel-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .control-panel-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .control-panel-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .control-panel-feature {
+      padding: 1rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: var(--bg-card);
+      border: 1px solid transparent;
+    }
+
+    .control-panel-feature:hover {
+      border-color: var(--slate-600);
+    }
+
+    .control-panel-feature.active {
+      background: rgba(6, 182, 212, 0.1);
+      border-color: rgba(6, 182, 212, 0.3);
+    }
+
+    .control-panel-feature-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .control-panel-feature-check {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+      transition: all 0.3s ease;
+      background: var(--slate-600);
+    }
+
+    .control-panel-feature.active .control-panel-feature-check {
+      background: var(--cyan-500);
+      transform: scale(1.1);
+    }
+
+    .control-panel-feature-check svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .control-panel-feature.active .control-panel-feature-check svg {
+      color: #fff;
+    }
+
+    .control-panel-feature-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .control-panel-feature.active .control-panel-feature-title {
+      color: var(--cyan-400);
+    }
+
+    .control-panel-feature-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .control-panel-feature.active .control-panel-feature-description {
+      max-height: 5rem;
+      opacity: 1;
+    }
+
+    .control-panel-preview {
+      position: relative;
+    }
+
+    .control-panel-preview-container {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid var(--slate-600);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      aspect-ratio: 1392/1000;
+    }
+
+    .control-panel-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .control-panel-preview img.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .control-panel-preview img.transitioning {
+      transform: scale(1.02);
+      filter: blur(1px);
+    }
+
+    .control-panel-preview-glow {
+      position: absolute;
+      inset: -1rem;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1));
+      border-radius: 1rem;
+      filter: blur(24px);
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    /* Locations Section */
+    .locations {
+      position: relative;
+      padding: 6rem 0;
+      overflow: hidden;
+    }
+
+    .locations-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary));
+    }
+
+    .locations-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .locations-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: var(--cyan-400);
+    }
+
+    .locations-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .locations-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .locations-title {
+        font-size: 3rem;
+      }
+    }
+
+    .locations-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 1rem;
+    }
+
+    .locations-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+    }
+
+    @media (min-width: 1024px) {
+      .locations-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .locations-globe {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .locations-globe-glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: rgba(6, 182, 212, 0.05);
+      filter: blur(48px);
+    }
+
+    .locations-globe canvas {
+      cursor: grab;
+      position: relative;
+      z-index: 10;
+    }
+
+    .locations-globe canvas:active {
+      cursor: grabbing;
+    }
+
+    .locations-globe-hint {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    .locations-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .locations-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .locations-list::-webkit-scrollbar-track {
+      background: var(--bg-card);
+      border-radius: 3px;
+    }
+
+    .locations-list::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 3px;
+    }
+
+    .locations-list::-webkit-scrollbar-thumb:hover {
+      background: #4b5563;
+    }
+
+    .location-card {
+      position: relative;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: var(--bg-card);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .location-card:hover {
+      transform: scale(1.02);
+      border-color: rgba(6, 182, 212, 0.3);
+      background: #1e2235;
+    }
+
+    .location-card.active {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
+      border-color: rgba(16, 185, 129, 0.5);
+    }
+
+    .location-card-indicator {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 2rem;
+      background: linear-gradient(to bottom, var(--emerald-400), var(--cyan-400));
+      border-radius: 0 9999px 9999px 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .location-card.active .location-card-indicator {
+      opacity: 1;
+    }
+
+    .location-card-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .location-card-flag {
+      font-size: 1.5rem;
+    }
+
+    .location-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .location-card-name {
+      font-weight: 600;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .location-card-country {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .location-card-ping {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      background: rgba(51, 65, 85, 0.5);
+      color: var(--text-secondary);
+    }
+
+    .location-card.active .location-card-ping {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--emerald-400);
+    }
+
+    .location-details {
+      margin-top: 1rem;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      animation: fadeSlideIn 0.3s ease;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .location-details-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .location-details-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .location-details-flag {
+      font-size: 1.875rem;
+    }
+
+    .location-details-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .location-details-country {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .location-details-ping {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--emerald-400);
+    }
+
+    .location-details-ping svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .location-details-ping span {
+      font-weight: 600;
+    }
+
+    .location-details-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .location-details-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .location-details-stat svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .location-details-btn {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--emerald-400);
+      font-weight: 500;
+      font-size: 0.875rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .location-details-btn:hover {
+      transform: translateX(4px);
+    }
+
+    .location-details-btn svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      position: relative;
+      padding: 7rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .testimonials-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: var(--emerald-400);
+    }
+
+    .testimonials-badge svg {
+      width: 1rem;
+      height: 1rem;
+      fill: currentColor;
+    }
+
+    .testimonials-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .testimonials-title {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .testimonials-title {
+        font-size: 3rem;
+      }
+    }
+
+    .testimonials-title span {
+      color: var(--emerald-400);
+    }
+
+    .testimonials-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .testimonials-stars {
+      display: flex;
+      gap: 0.125rem;
+    }
+
+    .testimonials-stars svg {
+      width: 1.75rem;
+      height: 1.75rem;
+      fill: transparent;
+      color: var(--slate-600);
+      transition: all 0.3s ease;
+      transform: scale(0.5) rotate(-180deg);
+      opacity: 0.3;
+    }
+
+    .testimonials-stars svg.visible {
+      fill: var(--green-500);
+      color: var(--green-500);
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+
+    .testimonials-rating-text {
+      color: var(--text-secondary);
+    }
+
+    .testimonials-rating-text .highlight {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .testimonials-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .testimonial-card {
+      background: rgba(26, 29, 46, 0.8);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .testimonial-card:hover {
+      border-color: rgba(51, 65, 85, 0.8);
+      transform: translateY(-4px);
+    }
+
+    .testimonial-card-quote {
+      width: 2rem;
+      height: 2rem;
+      color: rgba(6, 182, 212, 0.2);
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card-stars {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-card-stars svg {
+      width: 1rem;
+      height: 1rem;
+      fill: var(--green-500);
+      color: var(--green-500);
+    }
+
+    .testimonial-card-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .testimonial-card:hover .testimonial-card-title {
+      color: var(--cyan-400);
+    }
+
+    .testimonial-card-content {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .testimonial-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .testimonial-card-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan-500), var(--emerald-400));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #000;
+    }
+
+    .testimonial-card-name {
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .testimonial-card-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Partners Section */
+    .partners {
+      position: relative;
+      padding: 5rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .partners-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .partners-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .partners-title span {
+      color: var(--cyan-400);
+    }
+
+    .partners-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-top: 1rem;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .partner-card {
+      text-align: center;
+    }
+
+    .partner-card-logo {
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .partner-card-logo img {
+      max-height: 100%;
+      max-width: 180px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+
+    .partner-card:hover .partner-card-logo img {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .partner-card-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* CTA Section */
+    .cta {
+      position: relative;
+      padding: 8rem 0;
+      overflow: hidden;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(147, 51, 234, 0.1), rgba(16, 185, 129, 0.1));
+      border-radius: 50%;
+      filter: blur(150px);
+    }
+
+    .cta-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .cta-content {
+      max-width: 56rem;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1));
+      border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    .cta-badge svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--cyan-400);
+    }
+
+    .cta-badge span {
+      color: var(--cyan-400);
+      font-weight: 500;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 640px) {
+      .cta-title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cta-title {
+        font-size: 3.75rem;
+      }
+    }
+
+    .cta-description {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 42rem;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: 9999px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--slate-600);
+      backdrop-filter: blur(4px);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .cta-pill:hover {
+      transform: scale(1.05) translateY(-2px);
+    }
+
+    .cta-pill svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--cyan-400);
+    }
+
+    .cta-pill span {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .cta-buttons {
+        flex-direction: row;
+      }
+    }
+
+    .cta-footer {
+      margin-top: 2.5rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .cta-footer .check {
+      color: var(--emerald-400);
+    }
+
+    /* Footer */
+    .footer {
+      background: #0a0c14;
+      border-top: 1px solid var(--slate-800);
+      padding: 4rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      }
+    }
+
+    .footer-brand {
+      grid-column: span 2;
+    }
+
+    @media (min-width: 1024px) {
+      .footer-brand {
+        grid-column: span 1;
+      }
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: linear-gradient(135deg, var(--cyan-400), var(--emerald-400));
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-logo-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--bg-primary);
+    }
+
+    .footer-logo-text {
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .footer-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      max-width: 20rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-social a {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 0.5rem;
+      background: var(--slate-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      background: var(--slate-700);
+      color: var(--text-primary);
+      transform: scale(1.1);
+    }
+
+    .footer-section h4 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-section a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--cyan-400);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid var(--slate-800);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-bottom-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--text-secondary);
+    }
+
+    /* Icon gradients */
+    .gradient-blue-cyan { background: linear-gradient(135deg, #3b82f6, var(--cyan-500)); }
+    .gradient-purple-pink { background: linear-gradient(135deg, var(--purple-600), var(--pink-500)); }
+    .gradient-emerald-green { background: linear-gradient(135deg, var(--emerald-500), var(--green-500)); }
+    .gradient-orange-amber { background: linear-gradient(135deg, #f97316, #fbbf24); }
+    .gradient-cyan-blue { background: linear-gradient(135deg, var(--cyan-500), #3b82f6); }
+    .gradient-pink-rose { background: linear-gradient(135deg, var(--pink-500), #f43f5e); }
+    .gradient-amber-yellow { background: linear-gradient(135deg, #d97706, #d99706); }
+    .gradient-slate { background: linear-gradient(135deg, #64748b, #475569); }
+    .gradient-zinc { background: linear-gradient(135deg, #a1a1aa, #71717a); }
+    .gradient-yellow-orange { background: linear-gradient(135deg, #eab308, #f97316); }
+    .gradient-purple-violet { background: linear-gradient(135deg, var(--purple-600), var(--violet-600)); }
+  </style>
+</head>
+<body>
+  <!-- Promo Banner -->
+  <div class="promo-banner">
+    <span class="highlight">25% off</span> on first order with
+    <span class="code">CRAFT25</span>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-content">
+      <a href="#" class="navbar-logo">
+        <div class="navbar-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+          </svg>
+        </div>
+        <span class="navbar-logo-text">CraftNode</span>
+      </a>
+
+      <div class="navbar-links">
+        <a href="#pricing">Minecraft Server Hosting</a>
+        <a href="#games">Games</a>
+        <a href="#control-panel">Control Panel</a>
+        <a href="#testimonials">Support</a>
+      </div>
+
+      <div class="navbar-buttons">
+        <button class="btn btn-outline">Dashboard</button>
+        <a href="#pricing" class="btn btn-primary">Order Now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="scroll-animate" data-delay="0">
+            <div class="hero-trust-badge">
+              <div class="hero-avatars">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="">
+              </div>
+              <div class="hero-divider"></div>
+              <span style="font-weight: 600;">Excellent</span>
+              <div class="hero-stars">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">on Trustpilot</span>
+            </div>
+          </div>
+
+          <div class="scroll-animate" data-delay="100">
+            <h1 class="hero-title">
+              Minecraft<br>
+              Server <span class="gradient-text">Hosting</span>
+            </h1>
+            <p class="hero-description">
+              Lag-free, customizable servers ready in minutes. Host your adventure today with the most powerful hardware!
+            </p>
+          </div>
+
+          <div class="scroll-animate" data-delay="200">
+            <div class="hero-features">
+              <div class="hero-feature">
+                <div class="hero-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span>Java & Bedrock Edition Servers</span>
+              </div>
+              <div class="hero-feature">
+                <div class="hero-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span>More than 15,000 Modpacks</span>
+              </div>
+              <div class="hero-feature">
+                <div class="hero-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span>1-Click Mods/Plugins Install</span>
+              </div>
+              <div class="hero-feature">
+                <div class="hero-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <span>24/7 Technical Support</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-animate" data-delay="300">
+            <div class="hero-cta">
+              <a href="#pricing" class="btn btn-primary btn-lg">
+                Rent your server
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="#games" class="btn btn-outline btn-lg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Discover All Games
+              </a>
+            </div>
+          </div>
+
+          <div class="scroll-animate" data-delay="400">
+            <div class="hero-stats">
+              <div>
+                <div class="hero-stat-value gradient-text">50K+</div>
+                <div class="hero-stat-label">Active Servers</div>
+              </div>
+              <div>
+                <div class="hero-stat-value gradient-text">99.9%</div>
+                <div class="hero-stat-label">Uptime</div>
+              </div>
+              <div>
+                <div class="hero-stat-value gradient-text">&lt;15min</div>
+                <div class="hero-stat-label">Avg Support</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-image-glow"></div>
+          <img src="https://apexminecrafthosting.com/_astro/hero.DUqUHHgf.png" alt="Minecraft Characters" class="hero-image">
+          
+          <div class="hero-badge hero-badge-1">
+            <div class="hero-badge-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="hero-badge-text">Instant Setup</div>
+              <div class="hero-badge-subtext">Ready in 60 seconds</div>
+            </div>
+          </div>
+
+          <div class="hero-badge hero-badge-2">
+            <div class="hero-badge-icon cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div>
+              <div class="hero-badge-text">DDoS Protected</div>
+              <div class="hero-badge-subtext">Enterprise security</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-bg"></div>
+    <div class="pricing-overlay"></div>
+    
+    <div class="container pricing-content">
+      <div class="pricing-header scroll-animate">
+        <span class="pricing-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path></svg>
+          Simple, Transparent Pricing
+        </span>
+        <h2 class="pricing-title">Everything you need for a Minecraft server.</h2>
+        <p class="pricing-subtitle gradient-text">From $5.99 per month.</p>
+        <p class="pricing-description">Set up in under 60 seconds. Cancel anytime.</p>
+
+        <div class="pricing-toggle">
+          <div class="pricing-toggle-container">
+            <button class="pricing-toggle-btn active" data-billing="monthly">Monthly</button>
+            <button class="pricing-toggle-btn" data-billing="quarterly">
+              Quarterly
+              <span class="pricing-toggle-discount">-10%</span>
+            </button>
+            <button class="pricing-toggle-btn" data-billing="annually">
+              Annually
+              <span class="pricing-toggle-discount">-20%</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-cards" id="pricing-cards">
+        <!-- Cards will be generated by JS -->
+      </div>
+
+      <div class="pricing-footer scroll-animate" data-delay="500">
+        All plans include: <span>Unlimited Player Slots</span> • <span>Free Subdomain</span> • <span>DDoS Protection</span> • <span>Full FTP Access</span> • <span>24/7 Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-glow-1"></div>
+    <div class="features-glow-2"></div>
+
+    <div class="container" style="position: relative;">
+      <div class="features-header scroll-animate">
+        <span class="features-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Powerful Features
+        </span>
+        <h2 class="features-title">Only At <span class="gradient-text">CraftNode Hosting</span></h2>
+        <p class="features-description">We combine cutting edge hardware with industry-leading service to deliver unmatched performance, reliability, and ease of use.</p>
+      </div>
+
+      <div class="features-grid" id="features-grid">
+        <!-- Features will be generated by JS -->
+      </div>
+
+      <div class="features-highlight scroll-animate" data-delay="600">
+        <div class="features-highlight-content">
+          <div class="features-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <span>AMD Ryzen 9 CPUs</span>
+          </div>
+          <div class="features-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>DDoS Protection</span>
+          </div>
+          <div class="features-highlight-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+            <span>NVMe Storage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section class="games" id="games">
+    <div class="container">
+      <div class="games-header scroll-animate">
+        <div>
+          <span class="games-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="14" y1="12" x2="18" y2="12"></line><path d="M6 7h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path><path d="M18 7h-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>
+            100+ Games
+          </span>
+          <h2 class="games-title">Available Games</h2>
+        </div>
+        <a href="#games" class="games-link">
+          View All Games
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+      <div class="games-grid" id="games-grid">
+        <!-- Games will be generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Control Panel Section -->
+  <section class="control-panel" id="control-panel">
+    <div class="container">
+      <div class="control-panel-header scroll-animate">
+        <h2 class="control-panel-title">EXPERIENCE THE NEW <span>CONTROL PANEL</span></h2>
+        <p class="control-panel-description">Our new panel has all the features you need and more! Get a new server today and discover them all.</p>
+      </div>
+
+      <div class="control-panel-content">
+        <div class="scroll-animate from-left">
+          <div class="control-panel-features" id="panel-features">
+            <!-- Features will be generated by JS -->
+          </div>
+        </div>
+
+        <div class="scroll-animate from-right">
+          <div class="control-panel-preview">
+            <div class="control-panel-preview-glow"></div>
+            <div class="control-panel-preview-container" id="panel-preview">
+              <!-- Images will be generated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations Section -->
+  <section class="locations" id="locations">
+    <div class="locations-bg"></div>
+    
+    <div class="container" style="position: relative;">
+      <div class="locations-header scroll-animate">
+        <span class="locations-badge">🌍 Global Infrastructure</span>
+        <h2 class="locations-title">Worldwide Server <span class="gradient-text">Locations</span></h2>
+        <p class="locations-description">Choose from 14+ data centers across the globe. Click on dots or drag to rotate.</p>
+      </div>
+
+      <div class="locations-content">
+        <div class="scroll-animate from-left">
+          <div class="locations-globe">
+            <div class="locations-globe-glow"></div>
+            <canvas id="globe-canvas" width="450" height="450"></canvas>
+          </div>
+          <p class="locations-globe-hint">Click markers to select • Drag to rotate • Green = selected</p>
+        </div>
+
+        <div class="scroll-animate from-right">
+          <div class="locations-list" id="locations-list">
+            <!-- Locations will be generated by JS -->
+          </div>
+          <div id="location-details"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials-header scroll-animate">
+        <span class="testimonials-badge">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          Customer Reviews
+        </span>
+        <h2 class="testimonials-title">We're Rated <span>Excellent!</span></h2>
+
+        <div class="testimonials-rating">
+          <div class="testimonials-stars" id="animated-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <div class="testimonials-rating-text">
+            <span class="highlight">4.8</span> out of 5 based on <span class="highlight">10,000+</span> reviews
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials-grid" id="testimonials-grid">
+        <!-- Testimonials will be generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section class="partners" id="partners">
+    <div class="container">
+      <div class="partners-header scroll-animate">
+        <h2 class="partners-title">OUR TRUSTED <span>PARTNERS</span></h2>
+        <p class="partners-description">We work with top gaming brands to deliver unbeatable hosting experiences.</p>
+      </div>
+
+      <div class="partners-grid" id="partners-grid">
+        <!-- Partners will be generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="cta">
+    <div class="cta-glow"></div>
+    <div class="cta-grid"></div>
+
+    <div class="container">
+      <div class="cta-content">
+        <div class="scroll-animate">
+          <span class="cta-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"></path></svg>
+            <span>Start Playing Today</span>
+          </span>
+        </div>
+
+        <div class="scroll-animate" data-delay="100">
+          <h2 class="cta-title">
+            Ready to Start Your<br>
+            <span class="gradient-text">Minecraft Adventure?</span>
+          </h2>
+        </div>
+
+        <div class="scroll-animate" data-delay="200">
+          <p class="cta-description">Join thousands of gamers who trust us with their servers. Start playing in under 60 seconds.</p>
+        </div>
+
+        <div class="scroll-animate" data-delay="300">
+          <div class="cta-pills">
+            <div class="cta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <span>Instant Setup</span>
+            </div>
+            <div class="cta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>DDoS Protected</span>
+            </div>
+            <div class="cta-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+              <span>24/7 Support</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-animate" data-delay="400">
+          <div class="cta-buttons">
+            <button class="btn btn-primary btn-lg" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+              Get Started Now
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <a href="#pricing" class="btn btn-outline btn-lg">View All Plans</a>
+          </div>
+        </div>
+
+        <div class="scroll-animate" data-delay="500">
+          <p class="cta-footer">
+            <span class="check">✓</span> 72-hour money back guarantee
+            <span style="margin: 0 0.5rem;">•</span>
+            <span class="check">✓</span> No hidden fees
+            <span style="margin: 0 0.5rem;">•</span>
+            <span class="check">✓</span> Cancel anytime
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand scroll-animate">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              </svg>
+            </div>
+            <span class="footer-logo-text">CraftNode</span>
+          </div>
+          <p class="footer-description">Premium game server hosting with instant setup, powerful hardware, and 24/7 support. Trusted by 50,000+ gamers worldwide.</p>
+          <div class="footer-social">
+            <a href="#">T</a>
+            <a href="#">D</a>
+            <a href="#">Y</a>
+          </div>
+        </div>
+
+        <div class="footer-section scroll-animate" data-delay="100">
+          <h4>Games</h4>
+          <ul>
+            <li><a href="#games">Minecraft Java</a></li>
+            <li><a href="#games">Minecraft Bedrock</a></li>
+            <li><a href="#games">Rust</a></li>
+            <li><a href="#games">ARK</a></li>
+            <li><a href="#games">Valheim</a></li>
+            <li><a href="#games">Palworld</a></li>
+            <li><a href="#games">All Games</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section scroll-animate" data-delay="200">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Server Status</a></li>
+            <li><a href="#">Knowledgebase</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section scroll-animate" data-delay="300">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Partners</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section scroll-animate" data-delay="400">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Acceptable Use</a></li>
+            <li><a href="#">SLA</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom scroll-animate" data-delay="500">
+        <p>© 2026 CraftNode. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Data
+    const plans = [
+      { name: "Dirt", ram: 2, price: 5.99, storage: 10, cpu: "200%", backups: 0, description: "Good for testing or saving your world files.", gradient: "gradient-amber-yellow", image: "https://wisehosting.com/images/heads/zombie.webp" },
+      { name: "Stone", ram: 4, price: 11.99, storage: 25, cpu: "350%", backups: 1, description: "Basic servers & some modpacks.", gradient: "gradient-slate", image: "https://wisehosting.com/images/heads/creeper.webp" },
+      { name: "Iron", ram: 6, price: 17.99, storage: 35, cpu: "450%", backups: 2, popular: true, description: "Basic servers & some modpacks.", gradient: "gradient-zinc", image: "https://wisehosting.com/images/heads/skeleton.webp" },
+      { name: "Gold", ram: 8, price: 23.99, storage: 50, cpu: "500%", backups: 2, description: "Advanced servers & all modpacks.", gradient: "gradient-yellow-orange", image: "https://wisehosting.com/images/heads/blaze.webp" },
+      { name: "Custom", ram: null, price: null, startingPrice: 1.49, isCustom: true, description: "Fully tailored to your needs.", gradient: "gradient-purple-violet", image: "https://wisehosting.com/images/heads/warden.webp" }
+    ];
+
+    const features = [
+      { title: "Free Subdomain", description: "All orders include a free web address for your server making it easy to connect for all.", gradient: "gradient-blue-cyan", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
+      { title: "Unlimited Slots", description: "All our servers come with unlimited slots, so your community can grow without boundaries.", gradient: "gradient-purple-pink", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>' },
+      { title: "24/7 Server Support", description: "Expert support team available around the clock via live chat from experienced administrators.", gradient: "gradient-emerald-green", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>' },
+      { title: "Automated Backups", description: "Offsite automatic backups guarantee your data will not be lost due to any configurations or failures.", gradient: "gradient-orange-amber", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>' },
+      { title: "One-Click Installer", description: "Instantly switch between 20+ games, and over 2000+ mod packs at the click of a button.", gradient: "gradient-cyan-blue", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>' },
+      { title: "Game Switching", description: "Swap your server to any of our 100+ covered games anytime, at no extra charge!", gradient: "gradient-pink-rose", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="14" y1="12" x2="18" y2="12"></line><path d="M6 7h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path><path d="M18 7h-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>' }
+    ];
+
+    const games = [
+      { name: "Minecraft: Java Edition", image: "https://cdn.apexminecrafthosting.com/2.0/games/minecraft/gamecovers/minecraft-boxart.jpg", price: "$5.99", discount: "-25%" },
+      { name: "Minecraft: Bedrock", image: "https://cdn.apexminecrafthosting.com/2.0/games/minecraft_bedrock/gamecovers/minecraft_bedrock-boxart.jpg", price: "$2.99", discount: "-25%" },
+      { name: "Palworld", image: "https://cdn.apexminecrafthosting.com/2.0/games/palworld/gamecovers/palworld-boxart.jpg", price: "$16.87", discount: "-25%" },
+      { name: "Valheim", image: "https://cdn.apexminecrafthosting.com/2.0/games/valheim/gamecovers/valheim-boxart.jpg", price: "$5.99", discount: "-25%" },
+      { name: "ARK: Survival Evolved", image: "https://cdn.apexminecrafthosting.com/2.0/games/ark/gamecovers/ark-boxart.jpg", price: "$11.24", discount: "-25%" },
+      { name: "Rust", image: "https://cdn.apexminecrafthosting.com/2.0/games/rust/gamecovers/rust-boxart.jpg", price: "$11.24", discount: "-25%" },
+      { name: "Project Zomboid", image: "https://cdn.apexminecrafthosting.com/2.0/games/zomboid/gamecovers/zomboid-boxart.jpg", price: "$5.99", discount: "-25%" },
+      { name: "Terraria", image: "https://cdn.apexminecrafthosting.com/2.0/games/terraria/gamecovers/terraria-boxart.jpg", price: "$2.99", discount: "-25%" }
+    ];
+
+    const panelFeatures = [
+      { id: "console", title: "Real-Time Console", description: "The console now feels smooth and instant, with a beautiful new design and brand new features.", image: "https://storyblok.shockbyte.com/f/296405/1392x1000/cff43386a4/console.webp/m/1440x0" },
+      { id: "modpack", title: "Modpack Installer", description: "Manage and find the exact modpacks you need with advanced filtering.", image: "https://storyblok.shockbyte.com/f/296405/1392x1000/debc23ec0a/modpacks.webp/m/1440x0" },
+      { id: "instances", title: "Server Instances", description: "Create different server configuration setups and swap between them on the fly.", image: "https://storyblok.shockbyte.com/f/296405/1392x1000/92b99b5837/instances.webp/m/1440x0" },
+      { id: "config", title: "Config Manager", description: "Edit all configs with ease from the comfort of your panel.", image: "https://storyblok.shockbyte.com/f/296405/1392x1000/a204055180/config.webp/m/1440x0" },
+      { id: "backups", title: "Backups", description: "Making or restoring a backup is as simple as one click.", image: "https://storyblok.shockbyte.com/f/296405/1392x1000/bcf9b360d6/backup.webp/m/1440x0" }
+    ];
+
+    const locations = [
+      { name: "Los Angeles", country: "USA", flag: "🇺🇸", ping: "12ms", lat: 34.05, lng: -118.25 },
+      { name: "Miami", country: "USA", flag: "🇺🇸", ping: "18ms", lat: 25.76, lng: -80.19 },
+      { name: "New York", country: "USA", flag: "🇺🇸", ping: "15ms", lat: 40.71, lng: -74.01 },
+      { name: "Dallas", country: "USA", flag: "🇺🇸", ping: "14ms", lat: 32.78, lng: -96.8 },
+      { name: "Seattle", country: "USA", flag: "🇺🇸", ping: "16ms", lat: 47.61, lng: -122.33 },
+      { name: "Toronto", country: "Canada", flag: "🇨🇦", ping: "20ms", lat: 43.65, lng: -79.38 },
+      { name: "London", country: "UK", flag: "🇬🇧", ping: "25ms", lat: 51.51, lng: -0.13 },
+      { name: "Paris", country: "France", flag: "🇫🇷", ping: "28ms", lat: 48.86, lng: 2.35 },
+      { name: "Frankfurt", country: "Germany", flag: "🇩🇪", ping: "26ms", lat: 50.11, lng: 8.68 },
+      { name: "Amsterdam", country: "Netherlands", flag: "🇳🇱", ping: "24ms", lat: 52.37, lng: 4.9 },
+      { name: "Singapore", country: "Singapore", flag: "🇸🇬", ping: "45ms", lat: 1.35, lng: 103.82 },
+      { name: "Tokyo", country: "Japan", flag: "🇯🇵", ping: "50ms", lat: 35.68, lng: 139.69 },
+      { name: "Sydney", country: "Australia", flag: "🇦🇺", ping: "55ms", lat: -33.87, lng: 151.21 },
+      { name: "São Paulo", country: "Brazil", flag: "🇧🇷", ping: "35ms", lat: -23.55, lng: -46.63 }
+    ];
+
+    const testimonials = [
+      { name: "K N Necroxin", date: "03 Dec 2024", title: "Best hosting service I've used", content: "The ease of access to all of your files, video tutorials, 24/7 support, and fair pricing keeps me coming back.", avatar: "KN" },
+      { name: "Mike Thompson", date: "28 Nov 2024", title: "Incredible support team", content: "Had an issue with my server and support solved it in minutes. Really happy with the service.", avatar: "MT" },
+      { name: "Sarah Chen", date: "15 Nov 2024", title: "Night and day difference", content: "We switched from another host and wow. Zero lag, amazing control panel, and the support actually responds!", avatar: "SC" },
+      { name: "Alex Rodriguez", date: "10 Nov 2024", title: "Perfect for modpacks", content: "I run multiple modded servers and the performance is incredible. The one-click installer saves hours.", avatar: "AR" }
+    ];
+
+    const partners = [
+      { name: "Facepunch", logo: "https://storyblok.shockbyte.com/f/296405/960x216/bbb91b549b/facepunch-logo.png", description: "The creators of Rust, one of the most iconic survival sandbox games ever made." },
+      { name: "Razer", logo: "https://storyblok.shockbyte.com/f/296405/1000x253/fe06755efa/razer.webp", description: "A global leader in gaming hardware, known for cutting-edge gear." },
+      { name: "FiveM", logo: "https://storyblok.shockbyte.com/f/296405/1000x338/3a68bde8dd/fivem_gta_v_logo.webp", description: "A tooling dev collective enabling enhanced RAGE title experiences." }
+    ];
+
+    // State
+    let currentBilling = 'monthly';
+    let activePanel = 'console';
+    let activeLocation = null;
+    let globeRotation = 0;
+    let isDragging = false;
+    let lastX = 0;
+    let hoveredLocation = null;
+    let animationFrame;
+
+    // Multipliers
+    const multipliers = { monthly: 1, quarterly: 0.9, annually: 0.8 };
+
+    // Render Functions
+    function renderPricingCards() {
+      const container = document.getElementById('pricing-cards');
+      container.innerHTML = plans.map((plan, index) => `
+        <div class="pricing-card scroll-animate ${plan.popular ? 'popular' : ''}" data-delay="${index * 100}">
+          ${plan.popular ? '<div class="pricing-card-badge">RECOMMENDED</div>' : ''}
+          <div class="pricing-card-header">
+            <div class="pricing-card-icon ${plan.gradient}">
+              <div class="pricing-card-icon-inner">
+                <img src="${plan.image}" alt="${plan.name}">
+              </div>
+            </div>
+            <div>
+              <div class="pricing-card-name gradient-text">${plan.isCustom ? 'CUSTOM' : plan.ram + ' GB'}</div>
+              <div class="pricing-card-ram">${plan.isCustom ? 'Build Your Own' : 'RAM'}</div>
+            </div>
+          </div>
+          <p class="pricing-card-description">${plan.description}</p>
+          <div class="pricing-card-price">
+            ${plan.isCustom ? `
+              <div class="pricing-card-price-label">Starting at</div>
+              <span class="pricing-card-price-value gradient-text">$${plan.startingPrice}</span>
+              <span class="pricing-card-price-period">/mo</span>
+            ` : `
+              <span class="pricing-card-price-value" data-base-price="${plan.price}">$${(plan.price * multipliers[currentBilling]).toFixed(2)}</span>
+              <span class="pricing-card-price-period">/mo</span>
+              ${currentBilling !== 'monthly' ? `<div class="pricing-card-price-original">$${plan.price.toFixed(2)}/mo</div>` : ''}
+            `}
+          </div>
+          ${!plan.isCustom ? `
+            <div class="pricing-card-features">
+              <div class="pricing-card-feature">
+                <div class="pricing-card-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                </div>
+                <span>${plan.storage} GB Storage</span>
+              </div>
+              <div class="pricing-card-feature">
+                <div class="pricing-card-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                </div>
+                <span>${plan.cpu} CPU Power</span>
+              </div>
+              <div class="pricing-card-feature">
+                <div class="pricing-card-feature-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                </div>
+                <span>${plan.backups} Backup${plan.backups !== 1 ? 's' : ''}</span>
+              </div>
+            </div>
+          ` : ''}
+          <button class="btn pricing-card-btn ${plan.popular ? 'primary' : plan.isCustom ? 'purple' : 'btn-outline'}" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})">
+            ${plan.isCustom ? 'Start Customizing' : 'Order Now'}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function updatePrices() {
+      const priceElements = document.querySelectorAll('.pricing-card-price-value[data-base-price]');
+      priceElements.forEach(el => {
+        const basePrice = parseFloat(el.dataset.basePrice);
+        el.textContent = '$' + (basePrice * multipliers[currentBilling]).toFixed(2);
+      });
+      
+      // Update original prices
+      document.querySelectorAll('.pricing-card-price-original').forEach(el => el.remove());
+      if (currentBilling !== 'monthly') {
+        priceElements.forEach(el => {
+          const basePrice = parseFloat(el.dataset.basePrice);
+          const original = document.createElement('div');
+          original.className = 'pricing-card-price-original';
+          original.textContent = '$' + basePrice.toFixed(2) + '/mo';
+          el.parentElement.appendChild(original);
+        });
+      }
+    }
+
+    function renderFeatures() {
+      const container = document.getElementById('features-grid');
+      container.innerHTML = features.map((feature, index) => `
+        <div class="feature-card scroll-animate" data-delay="${index * 100}">
+          <div class="feature-card-icon ${feature.gradient}">
+            <div class="feature-card-icon-inner">
+              ${feature.icon}
+            </div>
+          </div>
+          <h3 class="feature-card-title">${feature.title}</h3>
+          <p class="feature-card-description">${feature.description}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderGames() {
+      const container = document.getElementById('games-grid');
+      container.innerHTML = games.map((game, index) => `
+        <div class="game-card scroll-animate" data-delay="${index * 50}">
+          <div class="game-card-image">
+            <img src="${game.image}" alt="${game.name}">
+            ${game.discount ? `<span class="game-card-discount">${game.discount}</span>` : ''}
+          </div>
+          <div class="game-card-info">
+            <div class="game-card-name">${game.name}</div>
+            <div class="game-card-price gradient-text">from ${game.price}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPanelFeatures() {
+      const container = document.getElementById('panel-features');
+      container.innerHTML = panelFeatures.map(feature => `
+        <div class="control-panel-feature ${activePanel === feature.id ? 'active' : ''}" data-panel="${feature.id}">
+          <div class="control-panel-feature-content">
+            <div class="control-panel-feature-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="control-panel-feature-title">${feature.title}</div>
+              <div class="control-panel-feature-description">${feature.description}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      const previewContainer = document.getElementById('panel-preview');
+      previewContainer.innerHTML = panelFeatures.map(feature => `
+        <img src="${feature.image}" alt="${feature.title}" class="${activePanel === feature.id ? 'active' : ''}">
+      `).join('');
+    }
+
+    function renderLocations() {
+      const container = document.getElementById('locations-list');
+      container.innerHTML = locations.map((location, index) => `
+        <div class="location-card ${activeLocation === index ? 'active' : ''}" data-index="${index}">
+          <div class="location-card-indicator"></div>
+          <div class="location-card-content">
+            <span class="location-card-flag">${location.flag}</span>
+            <div class="location-card-info">
+              <div class="location-card-name">${location.name}</div>
+              <div class="location-card-country">${location.country}</div>
+            </div>
+            <span class="location-card-ping">${location.ping}</span>
+          </div>
+        </div>
+      `).join('');
+
+      updateLocationDetails();
+    }
+
+    function updateLocationDetails() {
+      const container = document.getElementById('location-details');
+      if (activeLocation !== null) {
+        const loc = locations[activeLocation];
+        container.innerHTML = `
+          <div class="location-details">
+            <div class="location-details-header">
+              <div class="location-details-info">
+                <span class="location-details-flag">${loc.flag}</span>
+                <div>
+                  <div class="location-details-name">${loc.name}</div>
+                  <div class="location-details-country">${loc.country}</div>
+                </div>
+              </div>
+              <div class="location-details-ping">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                <span>${loc.ping}</span>
+              </div>
+            </div>
+            <div class="location-details-stats">
+              <div class="location-details-stat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>99.9% Uptime</span>
+              </div>
+              <div class="location-details-stat">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Tier 4 Data Center</span>
+              </div>
+            </div>
+            <button class="location-details-btn">
+              Select this location
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = '';
+      }
+    }
+
+    function renderTestimonials() {
+      const container = document.getElementById('testimonials-grid');
+      container.innerHTML = testimonials.map((testimonial, index) => `
+        <div class="testimonial-card scroll-animate" data-delay="${index * 100}">
+          <svg class="testimonial-card-quote" viewBox="0 0 24 24" fill="currentColor"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+          <div class="testimonial-card-stars">
+            ${[...Array(5)].map(() => '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>').join('')}
+          </div>
+          <h3 class="testimonial-card-title">${testimonial.title}</h3>
+          <p class="testimonial-card-content">${testimonial.content}</p>
+          <div class="testimonial-card-footer">
+            <div class="testimonial-card-avatar">${testimonial.avatar}</div>
+            <div>
+              <div class="testimonial-card-name">${testimonial.name}</div>
+              <div class="testimonial-card-date">${testimonial.date}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPartners() {
+      const container = document.getElementById('partners-grid');
+      container.innerHTML = partners.map((partner, index) => `
+        <div class="partner-card scroll-animate from-scale" data-delay="${index * 150}">
+          <div class="partner-card-logo">
+            <img src="${partner.logo}" alt="${partner.name}">
+          </div>
+          <p class="partner-card-description">${partner.description}</p>
+        </div>
+      `).join('');
+    }
+
+    // Globe Rendering
+    function latLngToXY(lat, lng, rot, size) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180 + rot) * (Math.PI / 180);
+
+      const x = Math.sin(phi) * Math.cos(theta);
+      const y = Math.cos(phi);
+      const z = Math.sin(phi) * Math.sin(theta);
+
+      const isVisible = z > -0.15;
+      const scale = (z + 1.5) / 2.5;
+      const radius = size * 0.38;
+      const screenX = x * radius + size / 2;
+      const screenY = -y * radius + size / 2;
+
+      return { x: screenX, y: screenY, z, isVisible, scale };
+    }
+
+    function getLocationAtPoint(mouseX, mouseY, canvasSize, currentRotation) {
+      for (let i = 0; i < locations.length; i++) {
+        const loc = locations[i];
+        const pos = latLngToXY(loc.lat, loc.lng, currentRotation, canvasSize);
+        if (pos.isVisible) {
+          const markerSize = 10 * pos.scale;
+          const distance = Math.sqrt(Math.pow(mouseX - pos.x, 2) + Math.pow(mouseY - pos.y, 2));
+          if (distance < markerSize + 8) {
+            return i;
+          }
+        }
+      }
+      return null;
+    }
+
+    function drawGlobe() {
+      const canvas = document.getElementById('globe-canvas');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      const centerX = size / 2;
+      const centerY = size / 2;
+      const radius = size * 0.38;
+
+      ctx.clearRect(0, 0, size, size);
+
+      // Outer glow rings
+      for (let i = 3; i >= 0; i--) {
+        const ringRadius = radius + 15 + i * 12;
+        ctx.strokeStyle = `rgba(6, 182, 212, ${0.03 + i * 0.02})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Animated pulse ring
+      const pulsePhase = (Date.now() / 1000) % 2;
+      const pulseRadius = radius + 20 + pulsePhase * 40;
+      const pulseOpacity = 0.3 * (1 - pulsePhase / 2);
+      ctx.strokeStyle = `rgba(6, 182, 212, ${pulseOpacity})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Globe gradient background
+      const globeGradient = ctx.createRadialGradient(centerX - radius * 0.3, centerY - radius * 0.3, 0, centerX, centerY, radius);
+      globeGradient.addColorStop(0, '#1e3a5f');
+      globeGradient.addColorStop(0.3, '#0f2847');
+      globeGradient.addColorStop(0.7, '#0a1a2e');
+      globeGradient.addColorStop(1, '#050d15');
+      ctx.fillStyle = globeGradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Inner glow
+      const innerGlow = ctx.createRadialGradient(centerX, centerY, radius * 0.8, centerX, centerY, radius);
+      innerGlow.addColorStop(0, 'transparent');
+      innerGlow.addColorStop(1, 'rgba(6, 182, 212, 0.1)');
+      ctx.fillStyle = innerGlow;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Draw grid dots
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+      for (let lat = -80; lat <= 80; lat += 10) {
+        for (let lng = 0; lng < 360; lng += 10) {
+          const pos = latLngToXY(lat, lng, globeRotation, size);
+          if (pos.isVisible && pos.z > 0) {
+            const dotSize = 1 * pos.scale;
+            ctx.globalAlpha = Math.min(1, (pos.z + 0.3) * 0.8);
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, dotSize, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // Draw longitude arcs
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.1)';
+      ctx.lineWidth = 0.5;
+      for (let lng = 0; lng < 360; lng += 30) {
+        ctx.beginPath();
+        let started = false;
+        for (let lat = -90; lat <= 90; lat += 3) {
+          const pos = latLngToXY(lat, lng, globeRotation, size);
+          if (pos.isVisible && pos.z > 0) {
+            if (!started) {
+              ctx.moveTo(pos.x, pos.y);
+              started = true;
+            } else {
+              ctx.lineTo(pos.x, pos.y);
+            }
+          } else {
+            started = false;
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Draw latitude arcs
+      for (let lat = -60; lat <= 60; lat += 30) {
+        ctx.beginPath();
+        let started = false;
+        for (let lng = 0; lng <= 360; lng += 3) {
+          const pos = latLngToXY(lat, lng, globeRotation, size);
+          if (pos.isVisible && pos.z > 0) {
+            if (!started) {
+              ctx.moveTo(pos.x, pos.y);
+              started = true;
+            } else {
+              ctx.lineTo(pos.x, pos.y);
+            }
+          } else {
+            started = false;
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Draw connection lines between visible locations
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.15)';
+      ctx.lineWidth = 0.5;
+      const visibleLocs = locations.map((loc, idx) => ({ ...loc, idx, ...latLngToXY(loc.lat, loc.lng, globeRotation, size) })).filter(loc => loc.isVisible && loc.z > 0).sort((a, b) => a.z - b.z);
+
+      for (let i = 0; i < visibleLocs.length; i++) {
+        for (let j = i + 1; j < visibleLocs.length; j++) {
+          const dist = Math.sqrt(Math.pow(visibleLocs[i].x - visibleLocs[j].x, 2) + Math.pow(visibleLocs[i].y - visibleLocs[j].y, 2));
+          if (dist < 120) {
+            ctx.globalAlpha = 0.3 * (1 - dist / 120);
+            ctx.beginPath();
+            ctx.moveTo(visibleLocs[i].x, visibleLocs[i].y);
+            ctx.lineTo(visibleLocs[j].x, visibleLocs[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // Draw location markers
+      visibleLocs.forEach(loc => {
+        const isSelected = activeLocation === loc.idx;
+        const isHovered = hoveredLocation === loc.idx;
+        const markerSize = (isSelected || isHovered ? 10 : 7) * loc.scale;
+        const opacity = Math.min(1, (loc.z + 0.3) * 1.5);
+
+        // Outer pulse for selected
+        if (isSelected) {
+          const pulse = (Math.sin(Date.now() / 200) + 1) / 2;
+          ctx.beginPath();
+          ctx.arc(loc.x, loc.y, markerSize * 2.5 + pulse * 8, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(16, 185, 129, ${0.2 * opacity})`;
+          ctx.fill();
+        }
+
+        // Glow
+        const glowColor = isSelected ? 'rgba(16, 185, 129,' : isHovered ? 'rgba(34, 211, 238,' : 'rgba(6, 182, 212,';
+        const markerGlow = ctx.createRadialGradient(loc.x, loc.y, 0, loc.x, loc.y, markerSize * 3);
+        markerGlow.addColorStop(0, `${glowColor} ${opacity * 0.6})`);
+        markerGlow.addColorStop(1, `${glowColor} 0)`);
+        ctx.fillStyle = markerGlow;
+        ctx.beginPath();
+        ctx.arc(loc.x, loc.y, markerSize * 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Marker ring
+        ctx.strokeStyle = isSelected ? `rgba(16, 185, 129, ${opacity})` : isHovered ? `rgba(34, 211, 238, ${opacity})` : `rgba(6, 182, 212, ${opacity})`;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(loc.x, loc.y, markerSize, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner fill
+        ctx.fillStyle = isSelected ? `rgba(16, 185, 129, ${opacity * 0.3})` : isHovered ? `rgba(34, 211, 238, ${opacity * 0.3})` : `rgba(6, 182, 212, ${opacity * 0.2})`;
+        ctx.fill();
+
+        // Center dot
+        ctx.fillStyle = isSelected ? `rgba(52, 211, 153, ${opacity})` : isHovered ? `rgba(103, 232, 249, ${opacity})` : `rgba(103, 232, 249, ${opacity * 0.9})`;
+        ctx.beginPath();
+        ctx.arc(loc.x, loc.y, markerSize * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Label for selected/hovered
+        if ((isSelected || isHovered) && opacity > 0.5) {
+          ctx.font = 'bold 11px Inter, sans-serif';
+          ctx.fillStyle = isSelected ? 'rgba(52, 211, 153, 0.95)' : 'rgba(103, 232, 249, 0.95)';
+          ctx.textAlign = 'center';
+          ctx.fillText(loc.name, loc.x, loc.y - markerSize - 8);
+        }
+      });
+
+      // Globe border with glow
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Highlight arc at edge
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.2)';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius - 4, -Math.PI * 0.3, Math.PI * 0.3);
+      ctx.stroke();
+    }
+
+    function animateGlobe() {
+      if (!isDragging) {
+        globeRotation = (globeRotation + 0.15) % 360;
+      }
+      drawGlobe();
+      animationFrame = requestAnimationFrame(animateGlobe);
+    }
+
+    // Scroll Animation Observer
+    function setupScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay || 0;
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, parseInt(delay));
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+    }
+
+    // Animated Stars
+    function setupAnimatedStars() {
+      const starsContainer = document.getElementById('animated-stars');
+      const stars = starsContainer.querySelectorAll('svg');
+      let visibleCount = 0;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && visibleCount === 0) {
+            const interval = setInterval(() => {
+              if (visibleCount < stars.length) {
+                stars[visibleCount].classList.add('visible');
+                visibleCount++;
+              } else {
+                clearInterval(interval);
+              }
+            }, 150);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      observer.observe(starsContainer);
+    }
+
+    // Event Listeners
+    function setupEventListeners() {
+      // Billing toggle
+      document.querySelectorAll('.pricing-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.pricing-toggle-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentBilling = btn.dataset.billing;
+          updatePrices();
+        });
+      });
+
+      // Panel features
+      document.getElementById('panel-features').addEventListener('click', (e) => {
+        const feature = e.target.closest('.control-panel-feature');
+        if (feature && feature.dataset.panel !== activePanel) {
+          const images = document.querySelectorAll('#panel-preview img');
+          images.forEach(img => img.classList.add('transitioning'));
+          
+          setTimeout(() => {
+            activePanel = feature.dataset.panel;
+            document.querySelectorAll('.control-panel-feature').forEach(f => f.classList.remove('active'));
+            feature.classList.add('active');
+            images.forEach(img => {
+              img.classList.remove('active', 'transitioning');
+              if (img.alt === panelFeatures.find(p => p.id === activePanel).title) {
+                img.classList.add('active');
+              }
+            });
+          }, 150);
+        }
+      });
+
+      // Locations list
+      document.getElementById('locations-list').addEventListener('click', (e) => {
+        const card = e.target.closest('.location-card');
+        if (card) {
+          const index = parseInt(card.dataset.index);
+          activeLocation = activeLocation === index ? null : index;
+          document.querySelectorAll('.location-card').forEach((c, i) => {
+            c.classList.toggle('active', i === activeLocation);
+          });
+          updateLocationDetails();
+        }
+      });
+
+      // Globe interactions
+      const canvas = document.getElementById('globe-canvas');
+      
+      canvas.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        lastX = e.clientX;
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+
+        hoveredLocation = getLocationAtPoint(mouseX, mouseY, canvas.width, globeRotation);
+        canvas.style.cursor = hoveredLocation !== null ? 'pointer' : isDragging ? 'grabbing' : 'grab';
+
+        if (isDragging) {
+          const deltaX = e.clientX - lastX;
+          globeRotation = (globeRotation + deltaX * 0.5) % 360;
+          lastX = e.clientX;
+        }
+      });
+
+      canvas.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        isDragging = false;
+        hoveredLocation = null;
+      });
+
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+
+        const locIndex = getLocationAtPoint(mouseX, mouseY, canvas.width, globeRotation);
+        if (locIndex !== null) {
+          activeLocation = activeLocation === locIndex ? null : locIndex;
+          document.querySelectorAll('.location-card').forEach((c, i) => {
+            c.classList.toggle('active', i === activeLocation);
+          });
+          updateLocationDetails();
+        }
+      });
+
+      // Touch support for globe
+      canvas.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        lastX = e.touches[0].clientX;
+      });
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          const deltaX = e.touches[0].clientX - lastX;
+          globeRotation = (globeRotation + deltaX * 0.5) % 360;
+          lastX = e.touches[0].clientX;
+        }
+      });
+
+      canvas.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+    }
+
+    // Initialize
+    function init() {
+      renderPricingCards();
+      renderFeatures();
+      renderGames();
+      renderPanelFeatures();
+      renderLocations();
+      renderTestimonials();
+      renderPartners();
+      setupEventListeners();
+      setupScrollAnimations();
+      setupAnimatedStars();
+      animateGlobe();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
